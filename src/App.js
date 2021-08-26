@@ -7,10 +7,16 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTodo([...todo, input.toUpperCase()]);
+    setTodo([{...todo}, {
+      key: Math.floor(Math.random() * 10000), 
+      task: input.toUpperCase(),
+      complete: false}] );
     console.log(todo);
   }
 
+  const toggleComplete = () => {
+    
+  }
 
   return (
     <div className="App">
@@ -20,7 +26,7 @@ function App() {
       </form>
       <ul id="form">
       {todo ? todo.map((item) => 
-        <li onClick={() => changeStyle()} style={{ textDecoration: 'none'}} className='item' key={item}>{item}</li>
+        <li onClick={() => toggleComplete()} style={{ textDecoration: 'none'}} className='item' key={item.key}>{item.name}</li>
       )
       : null }
       </ul>
