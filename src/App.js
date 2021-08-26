@@ -6,16 +6,27 @@ function App() {
   const [todo, setTodo] = useState([]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setTodo([{...todo}, {
-      key: Math.floor(Math.random() * 10000), 
+    const newItem = {
+      _id: Math.floor(Math.random() * 10000), 
       task: input.toUpperCase(),
-      complete: false}] );
+      complete: false
+    }
+    e.preventDefault();
+    setTodo([...todo, newItem]);
     console.log(todo);
   }
 
-  const toggleComplete = () => {
-    
+  const toggleComplete = (e, id) => {
+    e.preventDefault();
+    console.log(id);
+    todo.filter((item) => {
+      if (item._id === id) {
+        console.log(todo, 'made it to filter');
+        setTodo([...todo, {...item, complete: !item.complete}])
+      }
+      // need to sort out how to update state when clicking on an item
+      return todo;
+    })
   }
 
   return (
@@ -26,7 +37,7 @@ function App() {
       </form>
       <ul id="form">
       {todo ? todo.map((item) => 
-        <li onClick={() => toggleComplete()} style={{ textDecoration: 'none'}} className='item' key={item.key}>{item.name}</li>
+        <li onClick={(e) => toggleComplete(e, item._id)} style={{ textDecoration: 'none'}} className='item' key={item._id}>{item.task}</li>
       )
       : null }
       </ul>
