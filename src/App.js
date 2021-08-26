@@ -13,18 +13,16 @@ function App() {
     }
     e.preventDefault();
     setTodo([...todo, newItem]);
-    console.log(todo);
+    // console.log(todo);
   }
 
   const toggleComplete = (e, id) => {
     e.preventDefault();
-    console.log(id);
     todo.filter((item) => {
       if (item._id === id) {
-        console.log(todo, 'made it to filter');
-        setTodo([...todo, {...item, complete: !item.complete}])
+        item.complete = !item.complete;
       }
-      // need to sort out how to update state when clicking on an item
+      // console.log(item.task, item.complete);
       return todo;
     })
   }
@@ -36,8 +34,8 @@ function App() {
         <button type='submit'>Submit</button>
       </form>
       <ul id="form">
-      {todo ? todo.map((item) => 
-        <li onClick={(e) => toggleComplete(e, item._id)} style={{ textDecoration: 'none'}} className='item' key={item._id}>{item.task}</li>
+      {todo ? todo.map((item) =>
+        <li onClick={(e) => toggleComplete(e, item._id)} style={{ textDecorationLine: item.complete ? 'line-through': 'none'}} className='item' key={item._id}>{item.task}</li>
       )
       : null }
       </ul>
