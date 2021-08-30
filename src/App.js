@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -6,25 +6,34 @@ function App() {
   const [todo, setTodo] = useState([]);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const newItem = {
-      _id: Math.floor(Math.random() * 10000), 
+      _id: todo.length,
       task: input.toUpperCase(),
       complete: false
     }
-    e.preventDefault();
     setTodo([...todo, newItem]);
-    // console.log(todo);
   }
 
-  const toggleComplete = (e, id) => {
-    e.preventDefault();
-    todo.filter((item) => {
+  const toggleComplete = (id) => {
+    let newTodo = todo.map((item) => {
       if (item._id === id) {
-        item.complete = !item.complete;
+        return {...item, complete: !item.complete};
       }
-      // console.log(item.task, item.complete);
-      return todo;
+      return item;
     })
+    setTodo(newTodo);
+  }
+
+  const deleteTodo = (id) => {
+    let newTodo = todo.map((item) => {
+      if (item._id === id) {
+        return todo.slice(item);
+      }
+      return item;
+    })
+    setTodo(newTodo);
+    console.log(todo);
   }
 
   return (
@@ -33,12 +42,15 @@ function App() {
         <input type="text" onChange={(e) => setInput(e.target.value)}></input>
         <button type='submit'>Submit</button>
       </form>
-      <ul id="form">
-      {todo ? todo.map((item) =>
-        <li onClick={(e) => toggleComplete(e, item._id)} style={{ textDecorationLine: item.complete ? 'line-through': 'none'}} className='item' key={item._id}>{item.task}</li>
+      <tbody id="form">
+      {todo ? todo.map((todo) =>
+        <tr>
+        <td onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} key={todo._id}>{todo.task}</td>
+        <td onClick={() => deleteTodo(todo._id)}>X</td>
+        </tr>
       )
       : null }
-      </ul>
+      </tbody>
     </div>
   );
 }

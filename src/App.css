@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
-.item {
-  
+.todo_complete {
+  text-decoration: line-through;
+}
+
+.todo_incomplete {
+  text-decoration: none;
 }
