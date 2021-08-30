@@ -2,12 +2,49 @@
   text-align: center;
 }
 
+#input-form {
+  margin-top: 50px;
 
-#form {
-  list-style-type: none;
+}
+#list{
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
+  margin-top: 20px;
+  justify-content: center;
+  text-align: center;
 }
 
-.item {
-  
+.todo_complete {
+  text-decoration: line-through;
+  margin: 5px auto;
+}
+
+.todo_incomplete {
+  text-decoration: none;
+  margin: 5px auto;
+}
+
+.row {
+  width: 250px;
+  margin: 5px auto;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.row:hover {
+  background-color: rgb(196, 196, 196);
+}
+
+.btn-delete {
+  display: inline-flex;
+  cursor: pointer;
+  margin-left: 20px;
+  border: none;
+  background-color:rgba(196, 196, 196, 0.0);
+  color: red;
+  text-align: center;
 }

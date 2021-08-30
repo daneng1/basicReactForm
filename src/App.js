@@ -6,41 +6,48 @@ function App() {
   const [todo, setTodo] = useState([]);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const newItem = {
-      _id: Math.floor(Math.random() * 10000), 
+      _id: Math.floor(Math.random() * 100000),
       task: input.toUpperCase(),
       complete: false
     }
-    e.preventDefault();
     setTodo([...todo, newItem]);
-    console.log(todo);
   }
 
-  const toggleComplete = (e, id) => {
-    e.preventDefault();
-    console.log(id);
-    todo.filter((item) => {
+  const toggleComplete = (id) => {
+    // set new variable and look through Toto's. When an id matches the id sent to the function, change complete to the opposite of whatever it is. Then set state of Todo's to new variable
+    let newTodo = todo.map((item) => {
       if (item._id === id) {
-        console.log(todo, 'made it to filter');
-        setTodo([...todo, {...item, complete: !item.complete}])
+        return {...item, complete: !item.complete};
       }
-      // need to sort out how to update state when clicking on an item
-      return todo;
+      return item;
     })
+    setTodo(newTodo);
+  }
+
+  const deleteTodo = (id) => {
+    // Filter out anything that had an id that matches the id sent to the function. 
+      setTodo(todo.filter((listItem) => listItem._id !== id));
+      console.log(todo);
   }
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
+      <h1>TO-DO List</h1>
+      <form id="input-form" onSubmit={handleSubmit}>
         <input type="text" onChange={(e) => setInput(e.target.value)}></input>
         <button type='submit'>Submit</button>
       </form>
-      <ul id="form">
-      {todo ? todo.map((item) => 
-        <li onClick={(e) => toggleComplete(e, item._id)} style={{ textDecoration: 'none'}} className='item' key={item._id}>{item.task}</li>
+      <div id="list">
+      {todo ? todo.map((todo) =>
+      <div className="row">
+        <p onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} >{todo.task}</p>
+        <button onClick={() => deleteTodo(todo._id)} className="btn-delete">X</button>
+      </div>
       )
       : null }
-      </ul>
+      </div>
     </div>
   );
 }
