@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      _id: todo.length,
+      _id: Math.floor(Math.random() * 100000),
       task: input.toUpperCase(),
       complete: false
     }
@@ -16,6 +16,7 @@ function App() {
   }
 
   const toggleComplete = (id) => {
+    // set new variable and look through Toto's. When an id matches the id sent to the function, change complete to the opposite of whatever it is. Then set state of Todo's to new variable
     let newTodo = todo.map((item) => {
       if (item._id === id) {
         return {...item, complete: !item.complete};
@@ -26,31 +27,27 @@ function App() {
   }
 
   const deleteTodo = (id) => {
-    let newTodo = todo.map((item) => {
-      if (item._id === id) {
-        return todo.slice(item);
-      }
-      return item;
-    })
-    setTodo(newTodo);
-    console.log(todo);
+    // Filter out anything that had an id that matches the id sent to the function. 
+      setTodo(todo.filter((listItem) => listItem._id !== id));
+      console.log(todo);
   }
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
+      <h1>TO-DO List</h1>
+      <form id="input-form" onSubmit={handleSubmit}>
         <input type="text" onChange={(e) => setInput(e.target.value)}></input>
         <button type='submit'>Submit</button>
       </form>
-      <tbody id="form">
+      <div id="list">
       {todo ? todo.map((todo) =>
-        <tr>
-        <td onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} key={todo._id}>{todo.task}</td>
-        <td onClick={() => deleteTodo(todo._id)}>X</td>
-        </tr>
+      <div className="row">
+        <p onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} >{todo.task}</p>
+        <button onClick={() => deleteTodo(todo._id)} className="btn-delete">X</button>
+      </div>
       )
       : null }
-      </tbody>
+      </div>
     </div>
   );
 }
