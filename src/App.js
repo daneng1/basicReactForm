@@ -36,14 +36,14 @@ function App() {
     <div className="App">
       <h1>TO-DO List</h1>
       <form id="input-form" onSubmit={handleSubmit}>
-        <input type="text" onChange={(e) => setInput(e.target.value)}></input>
-        <button type='submit'>Submit</button>
+        <input title="input-field" type="text" onChange={(e) => setInput(e.target.value)}></input>
+        <button title="input-btn" type='submit'>Submit</button>
       </form>
       <div id="list">
       {todo ? todo.map((todo) =>
       <div className="row">
-        <p onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} >{todo.task}</p>
-        <button onClick={() => deleteTodo(todo._id)} className="btn-delete">X</button>
+        <p title={todo.task} onClick={() => toggleComplete(todo._id)} className={todo.complete ? "todo_complete" : "todo_incomplete"} >{todo.task}</p>
+        <button title={`delete-${todo.task}`} onClick={() => deleteTodo(todo._id)} className="btn-delete">X</button>
       </div>
       )
       : null }
