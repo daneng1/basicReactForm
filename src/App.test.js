@@ -1,42 +1,40 @@
-import {render, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import App from './App';
+import { render, fireEvent, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import App from "./App";
 
-it('should check input field', () => {
-  const { queryByTitle } = render(<App/>);
+it("should check input field renders correctly", () => {
+  const { queryByTitle } = render(<App />);
   const input = queryByTitle("input-field");
-  expect(input).toBeTruthy(); 
-})
+  expect(input).toBeTruthy();
+});
 
-describe('click button', () => {
-  it('should render text on click', async() => {
-    const { queryByTitle } = render(<App/>);
+describe("Confirm button click actions", () => {
+  it("should render text when Submit button is clicked", async () => {
+    const { queryByTitle } = render(<App />);
     const inputField = queryByTitle("input-field");
     const btn = queryByTitle("input-btn");
-    fireEvent.change(inputField, {target: { value: 'new task'}});
+    fireEvent.change(inputField, { target: { value: "new task" } });
     fireEvent.click(btn);
-    const todo = queryByTitle('NEW TASK');
-    const deleteBtn = queryByTitle('delete-NEW TASK');
+    const todo = queryByTitle("NEW TASK");
+    const deleteBtn = queryByTitle("delete-NEW TASK");
     await waitFor(() => {
       expect(todo.innerHTML).toBe("NEW TASK");
       expect(deleteBtn).toBeTruthy();
-    })
-  })
+    });
+  });
 
-  // TODO: can't get delete test to pass. Element is not being removed.
-  it('should remove items when delete is clicked', async() => {
-    const { queryByTitle } = render(<App/>);
+  it("should remove todo items when delete button is clicked", async () => {
+    const { queryByTitle } = render(<App />);
     const inputField = queryByTitle("input-field");
     const btn = queryByTitle("input-btn");
-    fireEvent.change(inputField, {target: { value: 'new task'}});
+    fireEvent.change(inputField, { target: { value: "new task" } });
     fireEvent.click(btn);
-    const todo = queryByTitle('NEW TASK');
     const deleteBtn = queryByTitle("delete-NEW TASK");
+    // waitFor requires the element to be valid before calling it, so the fireEvent needs to be included inside waitFor
     await waitFor(() => {
       fireEvent.click(deleteBtn);
-    }, 1000)
-    await waitForElementToBeRemoved(() => {
-      expect(todo).toBeUndefined();
-    }, 1000)
-  })
-})
+      const todo = queryByTitle("NEW TASK");
+      expect(todo).toBeNull();
+    });
+  });
+});
