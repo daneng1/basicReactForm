@@ -30,7 +30,6 @@ describe("Confirm button click actions", () => {
     fireEvent.change(inputField, { target: { value: "new task" } });
     fireEvent.click(btn);
     const deleteBtn = queryByTitle("delete-NEW TASK");
-    // waitFor requires the element to be valid before calling it, so the fireEvent needs to be included inside waitFor
     await waitFor(() => {
       fireEvent.click(deleteBtn);
       const todo = queryByTitle("NEW TASK");

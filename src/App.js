@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
+import Loader from './loader';
 
 function App() {
   const [input, setInput] = useState("");
   const [todo, setTodo] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +16,10 @@ function App() {
     };
     setTodo([...todo, newItem]);
   };
+
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 3000)
 
   const toggleComplete = (id) => {
     // set new variable and look through Todo's. When an id matches the id sent to the function, change complete to the opposite of whatever it is. Then set state of Todo's to new variable
@@ -32,6 +38,12 @@ function App() {
   };
 
   return (
+    <>
+    {isLoading ? 
+      <div>
+        <Loader/>
+      </div>
+      :
     <div className="App">
       <h1>TO-DO List</h1>
       <form id="input-form" onSubmit={handleSubmit}>
@@ -69,6 +81,8 @@ function App() {
           : null}
       </div>
     </div>
+    }
+    </>
   );
 }
 
