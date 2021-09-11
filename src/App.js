@@ -59,6 +59,8 @@ function App() {
       <div id="list">
         {todo
           ? todo.map((todo) => (
+            <div>
+              <h2>Completed</h2>
               <div className="row">
                 <p
                   title={todo.task}
@@ -77,8 +79,11 @@ function App() {
                   X
                 </button>
               </div>
+
+            </div>
             ))
-          : null}
+          : null
+          }
       </div>
     </div>
     }
