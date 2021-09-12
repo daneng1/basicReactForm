@@ -60,7 +60,6 @@ function App() {
         {todo
           ? todo.map((todo) => (
             <div>
-              <h2>Completed</h2>
               <div className="row">
                 <p
                   title={todo.task}
