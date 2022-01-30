@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import "./App.css";
-import Loader from './loader';
+import Loader from "./loader";
 
 function App() {
   const [input, setInput] = useState("");
+  const [alert, setAlert] = useState(false);
   const [todo, setTodo] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (input === "") return setAlert(true);
     const newItem = {
       _id: Math.floor(Math.random() * 100000),
       task: input.toUpperCase(),
       complete: false,
     };
     setTodo([...todo, newItem]);
+    setInput("");
   };
 
-  setTimeout(() => {
-    setIsLoading(false)
-  }, 3000)
+  // setTimeout(() => {
+  //   setIsLoading(false);
+  // }, 3000);
 
   const toggleComplete = (id) => {
     // set new variable and look through Todo's. When an id matches the id sent to the function, change complete to the opposite of whatever it is. Then set state of Todo's to new variable
@@ -39,53 +42,57 @@ function App() {
 
   return (
     <>
-    {isLoading ? 
-      <div>
-        <Loader/>
-      </div>
-      :
-    <div className="App">
-      <h1>TO-DO List</h1>
-      <form id="input-form" onSubmit={handleSubmit}>
-        <input
-          title="input-field"
-          type="text"
-          onChange={(e) => setInput(e.target.value)}
-        ></input>
-        <button title="input-btn" type="submit">
-          Submit
-        </button>
-      </form>
-      <div id="list">
-        {todo
-          ? todo.map((todo) => (
-            <div>
-              <div className="row">
-                <p
-                  title={todo.task}
-                  onClick={() => toggleComplete(todo._id)}
-                  className={
-                    todo.complete ? "todo_complete" : "todo_incomplete"
-                  }
-                >
-                  {todo.task}
-                </p>
-                <button
-                  title={`delete-${todo.task}`}
-                  onClick={() => deleteTodo(todo._id)}
-                  className="btn-delete"
-                >
-                  X
-                </button>
-              </div>
-
+      {isLoading ? (
+        <div>
+          <Loader />
+        </div>
+      ) : (
+        <div className="App">
+          {alert && 
+            <div id="alert">
+              <p>Please enter some text</p>
+              <button onClick={() => setAlert(false)}>&times;</button>
             </div>
-            ))
-          : null
           }
-      </div>
-    </div>
-    }
+          <h1 id="header">TO-DO List</h1>
+          <form id="input-form" onSubmit={handleSubmit}>
+            <input
+              title="input-field"
+              type="text"
+              onChange={(e) => setInput(e.target.value)}
+            ></input>
+            <button title="input-btn" type="submit">
+              Submit
+            </button>
+          </form>
+          <div id="list">
+            {todo
+              ? todo.map((todo) => (
+                  <div key={todo._id}>
+                    <div className="row">
+                      <p
+                        title={todo.task}
+                        onClick={() => toggleComplete(todo._id)}
+                        className={
+                          todo.complete ? "todo_complete" : "todo_incomplete"
+                        }
+                      >
+                        {todo.task}
+                      </p>
+                      <button
+                        title={`delete-${todo.task}`}
+                        onClick={() => deleteTodo(todo._id)}
+                        className="btn-delete"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </div>
+                ))
+              : null}
+          </div>
+        </div>
+      )}
     </>
   );
 }
