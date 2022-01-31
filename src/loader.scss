@@ -3,7 +3,7 @@
   display: inline-flex;
   position: absolute;
   z-index: 999;
-  left: 50%;
+  left: calc(50% - 3em);
   top: 50%;
   height: 2em;
   width: 4em;

@@ -6,7 +6,7 @@ function App() {
   const [input, setInput] = useState("");
   const [alert, setAlert] = useState(false);
   const [todo, setTodo] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,9 +20,9 @@ function App() {
     setInput("");
   };
 
-  // setTimeout(() => {
-  //   setIsLoading(false);
-  // }, 3000);
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000);
 
   const toggleComplete = (id) => {
     // set new variable and look through Todo's. When an id matches the id sent to the function, change complete to the opposite of whatever it is. Then set state of Todo's to new variable
