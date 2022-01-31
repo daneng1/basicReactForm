@@ -1,4 +1,5 @@
 .App {
+  margin: 0 auto;
   text-align: center;
   z-index: 1;
 }
@@ -17,7 +18,7 @@
 }
 
 #alert {
-  position: fixed;
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -26,7 +27,8 @@
   align-self: center;
   z-index: 2;
   width: 250px;
-  background-color: #f44336;
+  margin-top: -100px;
+  background-color: rgba(244, 67, 54, 1);
   border-radius: 10px;
   opacity: 1;
   animation-duration: 600ms;
@@ -35,11 +37,13 @@
 
 @keyframes slidein {
   from {
-    margin-top: -35%;
+    margin-top: -200px;
+    background-color: rgba(244, 67, 54, 0);
   }
 
   to {
-    margin-top: -15%;
+    margin-top: -100px;
+    background-color: rgba(244, 67, 54, 1);
   }
 }
 
@@ -49,7 +53,7 @@
 
 #alert button {
   cursor: pointer;
-  background-color: #f44336;
+  background-color: rgba(0,0,0,0);
   border: none;
 }
 
