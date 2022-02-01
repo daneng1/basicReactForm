@@ -59,6 +59,7 @@ function App() {
             <input
               title="input-field"
               type="text"
+              value={input}
               onChange={(e) => setInput(e.target.value)}
             ></input>
             <button title="input-btn" type="submit">
