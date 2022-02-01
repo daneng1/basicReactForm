@@ -57,12 +57,13 @@ function App() {
           <h1 id="header">TO-DO List</h1>
           <form id="input-form" onSubmit={handleSubmit}>
             <input
+              id="input"
               title="input-field"
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             ></input>
-            <button title="input-btn" type="submit">
+            <button id="submit-btn" title="input-btn" type="submit">
               Submit
             </button>
           </form>
