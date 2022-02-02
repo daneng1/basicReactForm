@@ -71,7 +71,9 @@ function App() {
             {todo
               ? todo.map((todo) => (
                   <div key={todo._id}>
-                    <div className="row">
+                    <div className={
+                          todo.complete ? "row_complete" : "row_incomplete"
+                        }>
                       <p
                         title={todo.task}
                         onClick={() => toggleComplete(todo._id)}

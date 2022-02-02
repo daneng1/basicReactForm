@@ -81,7 +81,7 @@
   margin: 5px auto;
 }
 
-.row {
+.row_complete {
   width: 250px;
   margin: 5px auto;
   display: flex;
@@ -91,6 +91,20 @@
   border: 1px solid black;
   animation-name: fade-in;
   animation-duration: 500ms;
+  background-color: rgb(93, 94, 93);
+}
+
+.row_incomplete {
+  width: 250px;
+  margin: 5px auto;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  animation-name: fade-in;
+  animation-duration: 500ms;
+  background-color: rgb(32, 153, 70);
 }
 
 @keyframes fade-in {
