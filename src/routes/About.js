@@ -4,7 +4,7 @@ import NavBar from "../Navbar";
 
 export default function About () {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "30px" }}>
       <NavBar/>
       <p>Hello</p>
     </div>
