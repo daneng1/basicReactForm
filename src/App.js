@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Loader from "./loader";
 import Particles from "react-tsparticles";
+import NavBar from "./Navbar";
 
 function App() {
   const particlesInit = (main) => {
@@ -108,6 +109,7 @@ function App() {
               <button onClick={() => setAlert(false)}>&times;</button>
             </div>
           )}
+          <NavBar/>
           <h1 id="header">TO-DO List</h1>
           <form id="input-form" onSubmit={handleSubmit}>
             <input
